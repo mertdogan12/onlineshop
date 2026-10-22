@@ -10,7 +10,6 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = {"de.sepe.onlineshop.controller", "de.sepe.onlineshop.service"})
 public class OnlineshopApplication {
 
-
     public static void main(String[] args) {
         SpringApplication.run(OnlineshopApplication.class, args);
     }

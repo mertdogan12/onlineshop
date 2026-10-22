@@ -28,8 +28,6 @@ public class KundenprofilEntity {
         this.age = age;
     }
 
-
-
     public KundenprofilEntity() {
 
     }
