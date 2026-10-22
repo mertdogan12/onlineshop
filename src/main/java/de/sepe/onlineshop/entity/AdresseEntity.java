@@ -2,6 +2,7 @@ package de.sepe.onlineshop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Entity(name = "adresse")
 @Data
+@NoArgsConstructor
 public class AdresseEntity {
 
     @Id

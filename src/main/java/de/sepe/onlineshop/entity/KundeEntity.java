@@ -1,6 +1,7 @@
 package de.sepe.onlineshop.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Entity(name = "kunde")
 @Data
+@NoArgsConstructor
 public class KundeEntity {
 
     @Id

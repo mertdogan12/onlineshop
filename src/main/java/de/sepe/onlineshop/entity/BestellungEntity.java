@@ -1,6 +1,7 @@
 package de.sepe.onlineshop.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Entity(name = "bestellung")
 @Data
+@NoArgsConstructor
 public class BestellungEntity {
 
     @Id

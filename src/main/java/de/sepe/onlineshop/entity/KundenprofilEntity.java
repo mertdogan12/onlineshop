@@ -1,12 +1,14 @@
 package de.sepe.onlineshop.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity(name = "kundenprofil")
 @Data
+@NoArgsConstructor
 public class KundenprofilEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +29,6 @@ public class KundenprofilEntity {
         this.name = name;
         this.vorname = vorname;
         this.geb = geb;
-    }
-
-    public KundenprofilEntity() {
-
     }
 
     @Override
