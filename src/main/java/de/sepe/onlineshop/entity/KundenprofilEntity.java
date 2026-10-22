@@ -29,8 +29,6 @@ public class KundenprofilEntity {
         this.geb = geb;
     }
 
-
-
     public KundenprofilEntity() {
 
     }

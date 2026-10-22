@@ -28,4 +28,14 @@ public class BestellungEntity {
     @ManyToOne
     @JoinColumn(name = "kunde")
     private KundeEntity kunde;
+
+    @ManyToOne
+    @JoinColumn(name = "adresse")
+    private AdresseEntity adresse;
+
+    public BestellungEntity(Date datum, double lieferKosten, double gesamtKosten) {
+        this.datum = datum;
+        this.lieferKosten = lieferKosten;
+        this.gesamtKosten = gesamtKosten;
+    }
 }

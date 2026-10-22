@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "adresse")
 @Data
@@ -22,6 +24,9 @@ public class AdresseEntity {
     @OneToOne(mappedBy = "adresse")
     @JsonIgnore
     private KundenprofilEntity kundenprofil;
+
+    @OneToMany(mappedBy = "adresse")
+    private List<BestellungEntity> bestellungen = new ArrayList<>();
 
     public AdresseEntity(String name, String vorname, String ort, int plz, String land) {
         this.name = name;
