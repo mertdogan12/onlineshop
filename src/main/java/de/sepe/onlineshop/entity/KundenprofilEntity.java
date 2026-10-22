@@ -16,7 +16,7 @@ public class KundenprofilEntity {
     private String vorname;
     private Date geb;
 
-    @OneToOne(mappedBy = "Kundenprofil")
+    @OneToOne(mappedBy = "kundenprofil")
     private KundeEntity kunde;
 
     @OneToOne(cascade = CascadeType.PERSIST)
