@@ -15,17 +15,18 @@ public class KundenprofilEntity {
     private String name;
     private String vorname;
     private Date geb;
-    private int age;
+
+    @OneToOne(mappedBy = "Kundenprofil")
+    private KundeEntity kunde;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name ="adresse")
     private AdresseEntity adresse;
 
-    public KundenprofilEntity(String name, String vorname, Date geb, int age) {
+    public KundenprofilEntity(String name, String vorname, Date geb) {
         this.name = name;
         this.vorname = vorname;
         this.geb = geb;
-        this.age = age;
     }
 
 
@@ -41,7 +42,6 @@ public class KundenprofilEntity {
                 ", name='" + name + '\'' +
                 ", vorname='" + vorname + '\'' +
                 ", geb=" + geb +
-                ", age=" + age +
                 '}';
     }
 }
