@@ -17,4 +17,8 @@ public class KundeService {
 
         return kundeRepo.findAll();
     }
+
+    public KundeEntity saveKunde(KundeEntity newKu){
+        return kundeRepo.save(newKu);
+    }
 }
