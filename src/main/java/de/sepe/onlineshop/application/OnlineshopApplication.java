@@ -1,4 +1,4 @@
-package de.sepe.onlineshop;
+package de.sepe.onlineshop.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
