@@ -3,7 +3,9 @@ package de.sepe.onlineshop.service;
 import de.sepe.onlineshop.dao.ProduktDAO;
 import de.sepe.onlineshop.entity.ProduktEntity;
 import de.sepe.onlineshop.repository.IProduktRepository;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,5 +27,11 @@ public class ProduktService {
         produktEntity.setInfo(produkt.getInfo());
 
         return produktRepository.save(produktEntity);
+    }
+
+    public void deleteProdukt(Integer id) throws NotFoundException {
+        ProduktEntity produktEntity = produktRepository.findById(id).orElseThrow(() -> new NotFoundException("Produkt mit der ID " + id + " nicht gefunden"));
+
+        produktRepository.delete(produktEntity);
     }
 }
