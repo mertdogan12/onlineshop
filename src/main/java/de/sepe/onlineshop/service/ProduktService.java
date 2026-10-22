@@ -1,5 +1,6 @@
 package de.sepe.onlineshop.service;
 
+import de.sepe.onlineshop.dao.ProduktDAO;
 import de.sepe.onlineshop.entity.ProduktEntity;
 import de.sepe.onlineshop.repository.IProduktRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,4 +18,12 @@ public class ProduktService {
         return produktRepository.findAll();
     }
 
+    public ProduktEntity createProdukt(ProduktDAO produkt) {
+        ProduktEntity produktEntity = new ProduktEntity();
+        produktEntity.setName(produkt.getName());
+        produktEntity.setPreis(produkt.getPreis());
+        produktEntity.setInfo(produkt.getInfo());
+
+        return produktRepository.save(produktEntity);
+    }
 }
