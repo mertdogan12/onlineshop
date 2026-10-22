@@ -11,16 +11,17 @@ import java.util.List;
 @RestController
 public class KundeController {
 
-    /*@Autowired
-    KundeService kundeService;*/
+    @Autowired
+    KundeService kundeService;
 
     @GetMapping("/test")
     public String test(){
         return "moin";
     }
 
+    @GetMapping("/kunden")
     public List<KundeEntity> getAllKu(){
-        return null;
+        return kundeService.getAllKunden();
     }
 
 }
