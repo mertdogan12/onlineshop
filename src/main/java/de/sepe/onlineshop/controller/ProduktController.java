@@ -36,4 +36,13 @@ public class ProduktController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PutMapping("/produkte/{id}")
+    public ResponseEntity<ProduktEntity> updateProdukt(@PathVariable Integer id, @RequestBody ProduktDAO produkt) throws NotFoundException {
+        try {
+            return ResponseEntity.ok(produktService.updateProdukt(id, produkt));
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

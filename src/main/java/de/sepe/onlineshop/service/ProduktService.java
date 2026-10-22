@@ -34,4 +34,14 @@ public class ProduktService {
 
         produktRepository.delete(produktEntity);
     }
+
+    public ProduktEntity updateProdukt(Integer id, ProduktDAO produkt) throws NotFoundException {
+        ProduktEntity produktEntity = produktRepository.findById(id).orElseThrow(() -> new NotFoundException("Produkt mit der ID " + id + " nicht gefunden"));
+
+        produktEntity.setName(produkt.getName());
+        produktEntity.setPreis(produkt.getPreis());
+        produktEntity.setInfo(produkt.getInfo());
+
+        return produktRepository.save(produktEntity);
+    }
 }
