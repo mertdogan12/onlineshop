@@ -28,6 +28,7 @@ public class AdresseEntity {
     private KundenprofilEntity kundenprofil;
 
     @OneToMany(mappedBy = "adresse")
+    @JsonIgnore
     private List<BestellungEntity> bestellungen = new ArrayList<>();
 
     public AdresseEntity(String name, String vorname, String ort, int plz, String land) {

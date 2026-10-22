@@ -1,5 +1,6 @@
 package de.sepe.onlineshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,6 +30,7 @@ public class BestellungEntity {
 
     @ManyToOne
     @JoinColumn(name = "kunde")
+    @JsonIgnore
     private KundeEntity kunde;
 
     @ManyToOne

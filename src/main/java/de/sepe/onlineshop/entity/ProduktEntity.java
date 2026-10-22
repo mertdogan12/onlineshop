@@ -1,5 +1,6 @@
 package de.sepe.onlineshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,6 +28,7 @@ public class ProduktEntity {
     private List<KategorieEntity> kategorien = new ArrayList<>();
 
     @ManyToMany(mappedBy = "produkte")
+    @JsonIgnore
     private List<BestellungEntity> bestellungen = new ArrayList<>();
 
     public ProduktEntity(String name, double preis, String info) {

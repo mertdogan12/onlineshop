@@ -1,5 +1,6 @@
 package de.sepe.onlineshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +20,7 @@ public class KundenprofilEntity {
     private Date geb;
 
     @OneToOne(mappedBy = "kundenprofil")
+    @JsonIgnore
     private KundeEntity kunde;
 
     @OneToOne(cascade = CascadeType.PERSIST)
