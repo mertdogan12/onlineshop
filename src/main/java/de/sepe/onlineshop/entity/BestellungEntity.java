@@ -24,4 +24,8 @@ public class BestellungEntity {
     @ManyToMany
     @JoinColumn(name = "produkt")
     private List<ProduktEntity> produkte = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "kunde")
+    private KundeEntity kunde;
 }

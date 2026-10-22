@@ -5,9 +5,9 @@ import lombok.Data;
 import javax.persistence.*;
 import java.sql.Date;
 
-@Entity
+@Entity(name = "kundenprofil")
 @Data
-public class Kundenprofil {
+public class KundenprofilEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -19,9 +19,9 @@ public class Kundenprofil {
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name ="adresse")
-    private Adresse adresse;
+    private AdresseEntity adresse;
 
-    public Kundenprofil(String name, String vorname, Date geb, int age) {
+    public KundenprofilEntity(String name, String vorname, Date geb, int age) {
         this.name = name;
         this.vorname = vorname;
         this.geb = geb;
@@ -30,7 +30,7 @@ public class Kundenprofil {
 
 
 
-    public Kundenprofil() {
+    public KundenprofilEntity() {
 
     }
 
