@@ -2,10 +2,7 @@ package de.sepe.onlineshop.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
@@ -18,14 +15,20 @@ public class Kundenprofil {
     private String name;
     private String vorname;
     private Date geb;
-    private int alter;
+    private int age;
 
-    public Kundenprofil(String name, String vorname, Date geb, int alter) {
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name ="adresse")
+    private Adresse adresse;
+
+    public Kundenprofil(String name, String vorname, Date geb, int age) {
         this.name = name;
         this.vorname = vorname;
         this.geb = geb;
-        this.alter = alter;
+        this.age = age;
     }
+
+
 
     public Kundenprofil() {
 
@@ -38,7 +41,7 @@ public class Kundenprofil {
                 ", name='" + name + '\'' +
                 ", vorname='" + vorname + '\'' +
                 ", geb=" + geb +
-                ", alter=" + alter +
+                ", age=" + age +
                 '}';
     }
 }
