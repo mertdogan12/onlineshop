@@ -14,11 +14,6 @@ public class KundeController {
     /*@Autowired
     KundeService kundeService;*/
 
-    @GetMapping("/test")
-    public String test(){
-        return "moin";
-    }
-
     public List<KundeEntity> getAllKu(){
         return null;
     }
