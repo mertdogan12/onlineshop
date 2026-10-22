@@ -1,11 +1,13 @@
 package de.sepe.onlineshop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity
-public class Adresse {
+@Entity(name = "adresse")
+@Data
+public class AdresseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,5 +21,13 @@ public class Adresse {
 
     @OneToOne(mappedBy = "adresse")
     @JsonIgnore
-    private Kundenprofil kundenprofil;
+    private KundenprofilEntity kundenprofil;
+
+    public AdresseEntity(String name, String vorname, String ort, int plz, String land) {
+        this.name = name;
+        this.vorname = vorname;
+        this.ort = ort;
+        this.plz = plz;
+        this.land = land;
+    }
 }
