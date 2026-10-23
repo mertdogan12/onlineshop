@@ -41,7 +41,7 @@ public class ProduktController {
     }
 
     @PutMapping("/produkte/{id}")
-    public ResponseEntity<ProduktEntity> updateProdukt(@PathVariable Integer id, @RequestBody ProduktDAO produkt) throws NotFoundException {
+    public ResponseEntity<ProduktEntity> updateProdukt(@PathVariable Integer id, @RequestBody ProduktDAO produkt) {
         try {
             return ResponseEntity.ok(produktService.updateProdukt(id, produkt));
         } catch (NotFoundException e) {
@@ -52,9 +52,20 @@ public class ProduktController {
     }
 
     @PutMapping("/produkt/{id}/addkategorie")
-    public ResponseEntity<ProduktEntity> addKategorie(@PathVariable Integer id, @RequestBody List<Integer> kategorieID) throws NotFoundException {
+    public ResponseEntity<ProduktEntity> addKategorie(@PathVariable Integer id, @RequestBody List<Integer> kategorieID) {
         try {
             return ResponseEntity.ok(produktService.addKategorie(id, kategorieID));
+        } catch (NotFoundException e) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("error", e.getMessage());
+            return ResponseEntity.noContent().headers(headers).build();
+        }
+    }
+
+    @PutMapping("/produkt/{id}/removekategorie")
+    public ResponseEntity<ProduktEntity> removeKategorie(@PathVariable Integer id, @RequestBody List<Integer> kategorieID) {
+        try {
+            return ResponseEntity.ok(produktService.removeKategorie(id, kategorieID));
         } catch (NotFoundException e) {
             HttpHeaders headers = new HttpHeaders();
             headers.add("error", e.getMessage());
