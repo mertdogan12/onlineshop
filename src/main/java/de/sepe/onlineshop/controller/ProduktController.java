@@ -5,6 +5,7 @@ import de.sepe.onlineshop.entity.ProduktEntity;
 import de.sepe.onlineshop.service.ProduktService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,9 @@ public class ProduktController {
             produktService.deleteProdukt(id);
             return ResponseEntity.ok().build();
         } catch (NotFoundException e) {
-            return ResponseEntity.notFound().build();
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("error", e.getMessage());
+            return ResponseEntity.noContent().headers(headers).build();
         }
     }
 
@@ -42,7 +45,20 @@ public class ProduktController {
         try {
             return ResponseEntity.ok(produktService.updateProdukt(id, produkt));
         } catch (NotFoundException e) {
-            return ResponseEntity.notFound().build();
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("error", e.getMessage());
+            return ResponseEntity.noContent().headers(headers).build();
+        }
+    }
+
+    @PutMapping("/produkt/{id}/addkategorie")
+    public ResponseEntity<ProduktEntity> addKategorie(@PathVariable Integer id, @RequestBody List<Integer> kategorieID) throws NotFoundException {
+        try {
+            return ResponseEntity.ok(produktService.addKategorie(id, kategorieID));
+        } catch (NotFoundException e) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("error", e.getMessage());
+            return ResponseEntity.noContent().headers(headers).build();
         }
     }
 }

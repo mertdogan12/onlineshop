@@ -37,4 +37,12 @@ public class ProduktEntity {
         this.info = info;
     }
 
+    public void addKategorie(KategorieEntity kategorieEntity) {
+        this.kategorien.add(kategorieEntity);
+    }
+
+    public void removeKategorie(KategorieEntity kategorieEntity) {
+        this.kategorien.remove(kategorieEntity);
+    }
+
 }

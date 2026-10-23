@@ -3,6 +3,7 @@ package de.sepe.onlineshop.service;
 import de.sepe.onlineshop.dao.KategorieDAO;
 import de.sepe.onlineshop.entity.KategorieEntity;
 import de.sepe.onlineshop.repository.IKategorieRepository;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -22,5 +23,10 @@ public class KategorieService {
         KategorieEntity kategorieEntity = new KategorieEntity(kategorie.getName(), kategorie.getBeschreibung());
 
         return kategorieRepository.save(kategorieEntity);
+    }
+
+    public void deleteKategorie(Integer id) throws NotFoundException {
+        KategorieEntity kategorieEntity = kategorieRepository.findById(id).orElseThrow(() ->  new NotFoundException("Kategorie not found: " + id));
+        kategorieRepository.delete(kategorieEntity);
     }
 }
