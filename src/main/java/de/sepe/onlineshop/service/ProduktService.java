@@ -61,4 +61,15 @@ public class ProduktService {
 
         return produktRepository.save(produktEntity);
     }
+
+    public ProduktEntity removeKategorie(Integer id, List<Integer> kategorieIDs) throws NotFoundException {
+        ProduktEntity produktEntity = produktRepository.findById(id).orElseThrow(() -> new NotFoundException("Produkt mit der ID " + id + " nicht gefunden"));
+
+        for (Integer kategorieID : kategorieIDs) {
+            KategorieEntity ke = kategorieRepository.findById(kategorieID).orElseThrow(() -> new NotFoundException("Kategorie mit der ID " + kategorieID + " nicht gefunden"));
+            produktEntity.removeKategorie(ke);
+        }
+
+        return produktRepository.save(produktEntity);
+    }
 }
