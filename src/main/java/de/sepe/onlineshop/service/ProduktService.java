@@ -1,6 +1,7 @@
 package de.sepe.onlineshop.service;
 
 import de.sepe.onlineshop.dao.ProduktDAO;
+import de.sepe.onlineshop.entity.BestellungEntity;
 import de.sepe.onlineshop.entity.KategorieEntity;
 import de.sepe.onlineshop.entity.ProduktEntity;
 import de.sepe.onlineshop.repository.IKategorieRepository;
@@ -18,6 +19,8 @@ public class ProduktService {
     IProduktRepository produktRepository;
     @Autowired
     KategorieService kategorieService;
+    @Autowired
+    BestellungService bestellungService;
 
     public List<ProduktEntity> getAllProdukte() {
         return produktRepository.findAll();
@@ -38,6 +41,11 @@ public class ProduktService {
 
     public void deleteProdukt(Integer id) throws NotFoundException {
         ProduktEntity produktEntity = produktRepository.findById(id).orElseThrow(() -> new NotFoundException("Produkt mit der ID " + id + " nicht gefunden"));
+        removeKategorie(id, produktEntity.getKategorien().stream().map(KategorieEntity::getId).toList());
+
+        for (BestellungEntity bestellung : produktEntity.getBestellungen()) {
+            bestellungService.removeBestellung(bestellung.getId());
+        }
 
         produktRepository.delete(produktEntity);
     }

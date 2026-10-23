@@ -57,4 +57,11 @@ public class BestellungService {
         bestellungRepository.save(bestellung);
         return bestellung;
     }
+
+    public void removeBestellung(Integer bestllungsID) throws NotFoundException {
+        BestellungEntity bestellung = bestellungRepository.findById(bestllungsID).orElseThrow(() -> new NotFoundException("Bestellung not found: " + bestllungsID));
+        bestellung.getProdukte().clear();
+        bestellungRepository.save(bestellung);
+        bestellungRepository.delete(bestellung);
+    }
 }
