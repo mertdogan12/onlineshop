@@ -2,6 +2,7 @@ package de.sepe.onlineshop.service;
 
 import de.sepe.onlineshop.entity.KundeEntity;
 import de.sepe.onlineshop.repository.IKundeRepository;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,10 @@ public class KundeService {
         return kundeRepo.save(newKu);
     }
 
+    public void deleteKunde(int id) throws NotFoundException{
+        KundeEntity kunde = kundeRepo.findById(id).orElseThrow(() -> new NotFoundException("Kunde mit der ID " + id + " nicht gefunden"));
+
+        kundeRepo.delete(kunde);
+    }
 
 }
