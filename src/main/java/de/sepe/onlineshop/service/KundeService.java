@@ -1,5 +1,6 @@
 package de.sepe.onlineshop.service;
 
+import de.sepe.onlineshop.entity.BestellungEntity;
 import de.sepe.onlineshop.entity.KundeEntity;
 import de.sepe.onlineshop.repository.IKundeRepository;
 import javassist.NotFoundException;
@@ -27,6 +28,11 @@ public class KundeService {
         KundeEntity kunde = kundeRepo.findById(id).orElseThrow(() -> new NotFoundException("Kunde mit der ID " + id + " nicht gefunden"));
 
         kundeRepo.delete(kunde);
+    }
+
+    public List<BestellungEntity> getBesFromKunde(int id) throws NotFoundException {
+        KundeEntity kunde = kundeRepo.findById(id).orElseThrow(() -> new NotFoundException("Kunde mit der ID " + id + " nicht gefunden"));;
+        return kunde.getBestellungen();
     }
 
 }
