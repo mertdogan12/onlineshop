@@ -11,7 +11,7 @@ public class ProduktDAO {
 
     private String name;
 
-    private int preis;
+    private double preis;
 
     private String info;
 }

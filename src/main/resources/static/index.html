@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sepe Demoshop</title>
+    <link rel="stylesheet" href="css/shop.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="brand">sepe<span>shop</span></div>
+        <nav class="tabs" id="tabs">
+            <button data-view="shop" class="active">Shop</button>
+            <button data-view="bestellungen">Bestellungen</button>
+            <button data-view="verwaltung">Verwaltung</button>
+            <button data-view="api">API</button>
+        </nav>
+        <div class="topbar-rechts">
+            <label class="kunde-auswahl">
+                <span>Kunde</span>
+                <select id="aktuellerKunde" aria-label="Aktueller Kunde"></select>
+            </label>
+            <button class="btn btn-primary cart-btn" id="cartBtn">
+                Warenkorb <span class="zaehler" id="cartCount">0</span>
+            </button>
+            <span class="status-dot" id="backendStatus" title="Backend wird geprüft…"></span>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- Shop -->
+    <section id="view-shop" class="view active">
+        <div class="kopf">
+            <div>
+                <h1>Produkte</h1>
+                <p class="muted" id="produktAnzahl"></p>
+            </div>
+            <input type="search" id="suche" placeholder="Produkte durchsuchen…" aria-label="Produkte durchsuchen">
+        </div>
+        <div class="chips" id="kategorieFilter"></div>
+        <div class="grid" id="produktGrid"></div>
+    </section>
+
+    <!-- Bestellungen -->
+    <section id="view-bestellungen" class="view">
+        <div class="kopf">
+            <div>
+                <h1>Bestellungen</h1>
+                <p class="muted" id="bestellungenKunde"></p>
+            </div>
+        </div>
+        <div id="bestellungenListe" class="bestellungen"></div>
+    </section>
+
+    <!-- Verwaltung -->
+    <section id="view-verwaltung" class="view">
+        <div class="kopf">
+            <h1>Verwaltung</h1>
+        </div>
+        <div class="subtabs" id="subtabs">
+            <button data-sub="produkte" class="active">Produkte</button>
+            <button data-sub="kategorien">Kategorien</button>
+            <button data-sub="kunden">Kunden</button>
+            <button data-sub="kundenprofile">Kundenprofile</button>
+        </div>
+
+        <div id="sub-produkte" class="sub active">
+            <form id="produktForm" class="formular">
+                <h2>Neues Produkt</h2>
+                <div class="felder">
+                    <label>Name<input name="name" required></label>
+                    <label>Preis in €<input name="preis" type="number" min="0" step="1" required></label>
+                    <label class="breit">Beschreibung<input name="info"></label>
+                </div>
+                <fieldset class="kategorie-auswahl">
+                    <legend>Kategorien</legend>
+                    <div id="neuProduktKategorien" class="checks"></div>
+                </fieldset>
+                <button class="btn btn-primary">Produkt anlegen</button>
+            </form>
+            <div class="tabelle-wrap">
+                <table>
+                    <thead><tr><th>ID</th><th>Produkt</th><th>Preis</th><th>Kategorien</th><th></th></tr></thead>
+                    <tbody id="produktTabelle"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="sub-kategorien" class="sub">
+            <form id="kategorieForm" class="formular">
+                <h2>Neue Kategorie</h2>
+                <div class="felder">
+                    <label>Name<input name="name" required></label>
+                    <label class="breit">Beschreibung<input name="beschreibung"></label>
+                </div>
+                <button class="btn btn-primary">Kategorie anlegen</button>
+            </form>
+            <div class="tabelle-wrap">
+                <table>
+                    <thead><tr><th>ID</th><th>Kategorie</th><th>Beschreibung</th><th>Produkte</th><th></th></tr></thead>
+                    <tbody id="kategorieTabelle"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="sub-kunden" class="sub">
+            <form id="kundeForm" class="formular">
+                <h2>Neuer Kunde</h2>
+                <p class="muted klein">Legt Kunde, Kundenprofil und Adresse in einem Schritt an.</p>
+                <div class="felder">
+                    <label>Vorname<input name="vorname" required></label>
+                    <label>Nachname<input name="name" required></label>
+                    <label>Geburtsdatum<input name="geb" type="date"></label>
+                    <label>PLZ<input name="plz" inputmode="numeric" pattern="\d{4,5}" required></label>
+                    <label>Ort<input name="ort" required></label>
+                    <label>Land<input name="land" value="Deutschland" required></label>
+                </div>
+                <button class="btn btn-primary">Kunde anlegen</button>
+            </form>
+            <div class="tabelle-wrap">
+                <table>
+                    <thead><tr><th>ID</th><th>Kunde</th><th>Geburtsdatum</th><th>Adresse</th><th>Bestellungen</th><th></th></tr></thead>
+                    <tbody id="kundeTabelle"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="sub-kundenprofile" class="sub">
+            <form id="kundenprofilForm" class="formular">
+                <h2>Neues Kundenprofil</h2>
+                <p class="muted klein">Legt nur ein Profil mit Adresse an, ohne Kunde.</p>
+                <div class="felder">
+                    <label>Vorname<input name="vorname" required></label>
+                    <label>Nachname<input name="name" required></label>
+                    <label>Geburtsdatum<input name="geb" type="date"></label>
+                    <label>PLZ<input name="plz" inputmode="numeric" pattern="\d{4,5}" required></label>
+                    <label>Ort<input name="ort" required></label>
+                    <label>Land<input name="land" value="Deutschland" required></label>
+                </div>
+                <button class="btn btn-primary">Profil anlegen</button>
+            </form>
+            <div class="tabelle-wrap">
+                <table>
+                    <thead><tr><th>ID</th><th>Name</th><th>Geburtsdatum</th><th>Adresse</th><th>Kunde</th></tr></thead>
+                    <tbody id="kundenprofilTabelle"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- API -->
+    <section id="view-api" class="view">
+        <div class="kopf">
+            <div>
+                <h1>API</h1>
+                <p class="muted" id="apiAbdeckung"></p>
+            </div>
+            <button class="btn" id="neuLadenBtn">Alle Daten neu laden</button>
+        </div>
+        <div class="fortschritt"><div id="apiFortschritt"></div></div>
+        <div class="tabelle-wrap">
+            <table>
+                <thead><tr><th>Methode</th><th>Pfad</th><th>Zweck</th><th class="zahl">Aufrufe</th><th>Letzter Status</th></tr></thead>
+                <tbody id="endpointTabelle"></tbody>
+            </table>
+        </div>
+        <h2>Protokoll</h2>
+        <ul class="log" id="apiLog"></ul>
+    </section>
+</main>
+
+<!-- Warenkorb -->
+<div class="overlay" id="overlay" hidden></div>
+<aside class="drawer" id="cart" aria-label="Warenkorb">
+    <div class="drawer-kopf">
+        <h2>Warenkorb</h2>
+        <button class="btn btn-icon" id="cartSchliessen" aria-label="Schließen">✕</button>
+    </div>
+    <ul class="cart-liste" id="cartItems"></ul>
+    <form id="checkoutForm" class="checkout">
+        <p class="muted klein">Bestellung für <strong id="checkoutKunde"></strong></p>
+        <label>Versand<select name="lieferart" id="lieferart"></select></label>
+        <fieldset>
+            <legend>Lieferadresse</legend>
+            <div class="felder">
+                <label>Vorname<input name="vorname" required></label>
+                <label>Nachname<input name="name" required></label>
+                <label>PLZ<input name="plz" inputmode="numeric" pattern="\d{4,5}" required></label>
+                <label>Ort<input name="ort" required></label>
+                <label class="breit">Land<input name="land" required></label>
+            </div>
+        </fieldset>
+        <dl class="summen">
+            <dt>Zwischensumme</dt><dd id="summeZwischen"></dd>
+            <dt>Versand</dt><dd id="summeVersand"></dd>
+            <dt class="gesamt">Gesamt</dt><dd class="gesamt" id="summeGesamt"></dd>
+        </dl>
+        <button class="btn btn-primary btn-voll" id="bestellenBtn">Jetzt bestellen</button>
+    </form>
+</aside>
+
+<!-- Produkt bearbeiten -->
+<dialog id="produktDialog">
+    <form id="produktDialogForm" class="formular">
+        <h2 id="dialogTitel">Produkt bearbeiten</h2>
+        <div class="felder">
+            <label>Name<input name="name" required></label>
+            <label>Preis in €<input name="preis" type="number" min="0" step="1" required></label>
+            <label class="breit">Beschreibung<input name="info"></label>
+        </div>
+        <fieldset class="kategorie-auswahl">
+            <legend>Kategorien</legend>
+            <div id="dialogKategorien" class="checks"></div>
+        </fieldset>
+        <div class="aktionen">
+            <button type="button" class="btn" data-dialog-schliessen>Abbrechen</button>
+            <button class="btn btn-primary">Speichern</button>
+        </div>
+    </form>
+</dialog>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script src="js/shop.js"></script>
+</body>
+</html>
