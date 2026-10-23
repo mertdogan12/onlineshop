@@ -4,7 +4,6 @@ import de.sepe.onlineshop.dao.ProduktDAO;
 import de.sepe.onlineshop.entity.BestellungEntity;
 import de.sepe.onlineshop.entity.KategorieEntity;
 import de.sepe.onlineshop.entity.ProduktEntity;
-import de.sepe.onlineshop.repository.IKategorieRepository;
 import de.sepe.onlineshop.repository.IProduktRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

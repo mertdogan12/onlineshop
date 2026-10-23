@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MissingRequestValueException;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 public class BestellungsController {
 
     @Autowired
