@@ -1,5 +1,6 @@
 package de.sepe.onlineshop.controller;
 
+import de.sepe.onlineshop.entity.BestellungEntity;
 import de.sepe.onlineshop.entity.KundeEntity;
 import de.sepe.onlineshop.service.KundeService;
 import javassist.NotFoundException;
@@ -38,6 +39,11 @@ public class KundeController {
         } catch (NotFoundException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/kunde/bestellungen/{id}")
+    public List<BestellungEntity> getKundeBestellungen(@PathVariable int id) throws NotFoundException {
+        return kundeService.getBesFromKunde(id);
     }
 
 }
