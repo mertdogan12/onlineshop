@@ -1,6 +1,7 @@
 package de.sepe.onlineshop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.sepe.onlineshop.enums.BestellungsStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +24,8 @@ public class BestellungEntity {
     private double lieferKosten;
 
     private double gesamtKosten;
+
+    private BestellungsStatus status;
 
     @ManyToMany
     @JoinColumn(name = "produkt")

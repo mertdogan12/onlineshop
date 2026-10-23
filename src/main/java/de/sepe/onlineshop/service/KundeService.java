@@ -20,18 +20,22 @@ public class KundeService {
         return kundeRepo.findAll();
     }
 
+    public KundeEntity getKunde(int id) throws NotFoundException {
+        return kundeRepo.findById(id).orElseThrow(() -> new NotFoundException("Kunde mit der ID " + id + " nicht gefunden"));
+    }
+
     public KundeEntity saveKunde(KundeEntity newKu){
         return kundeRepo.save(newKu);
     }
 
     public void deleteKunde(int id) throws NotFoundException{
-        KundeEntity kunde = kundeRepo.findById(id).orElseThrow(() -> new NotFoundException("Kunde mit der ID " + id + " nicht gefunden"));
+        KundeEntity kunde = getKunde(id);
 
         kundeRepo.delete(kunde);
     }
 
     public List<BestellungEntity> getBesFromKunde(int id) throws NotFoundException {
-        KundeEntity kunde = kundeRepo.findById(id).orElseThrow(() -> new NotFoundException("Kunde mit der ID " + id + " nicht gefunden"));;
+        KundeEntity kunde = getKunde(id);
         return kunde.getBestellungen();
     }
 
