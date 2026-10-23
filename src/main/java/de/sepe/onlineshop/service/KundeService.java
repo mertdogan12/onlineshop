@@ -21,4 +21,6 @@ public class KundeService {
     public KundeEntity saveKunde(KundeEntity newKu){
         return kundeRepo.save(newKu);
     }
+
+
 }
