@@ -33,7 +33,7 @@ public class BestellungEntity {
     @JsonIgnore
     private KundeEntity kunde;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "adresse")
     private AdresseEntity adresse;
 
@@ -41,5 +41,9 @@ public class BestellungEntity {
         this.datum = datum;
         this.lieferKosten = lieferKosten;
         this.gesamtKosten = gesamtKosten;
+    }
+
+    public void addProdukt(ProduktEntity produktEntity) {
+        produkte.add(produktEntity);
     }
 }

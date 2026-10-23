@@ -38,4 +38,8 @@ public class KategorieService {
 
         kategorieRepository.delete(kategorieEntity);
     }
+
+    public KategorieEntity getKategorieById(Integer kategorieID) throws NotFoundException {
+        return kategorieRepository.findById(kategorieID).orElseThrow(() -> new NotFoundException("Kategorie not found: " + kategorieID));
+    }
 }

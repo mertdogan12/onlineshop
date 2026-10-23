@@ -17,10 +17,14 @@ public class ProduktService {
     @Autowired
     IProduktRepository produktRepository;
     @Autowired
-    IKategorieRepository kategorieRepository;
+    KategorieService kategorieService;
 
     public List<ProduktEntity> getAllProdukte() {
         return produktRepository.findAll();
+    }
+
+    public ProduktEntity getProduktById(Integer id) throws NotFoundException {
+        return produktRepository.findById(id).orElseThrow(() -> new NotFoundException("Produkt mit der ID " + id + " nicht gefunden"));
     }
 
     public ProduktEntity createProdukt(ProduktDAO produkt) {
@@ -39,7 +43,7 @@ public class ProduktService {
     }
 
     public ProduktEntity updateProdukt(Integer id, ProduktDAO produkt) throws NotFoundException {
-        ProduktEntity produktEntity = produktRepository.findById(id).orElseThrow(() -> new NotFoundException("Produkt mit der ID " + id + " nicht gefunden"));
+        ProduktEntity produktEntity = getProduktById(id);
 
         produktEntity.setName(produkt.getName());
         produktEntity.setPreis(produkt.getPreis());
@@ -49,10 +53,10 @@ public class ProduktService {
     }
 
     public ProduktEntity addKategorie(Integer id, List<Integer> kategorieIDs) throws NotFoundException {
-        ProduktEntity produktEntity = produktRepository.findById(id).orElseThrow(() -> new NotFoundException("Produkt mit der ID " + id + " nicht gefunden"));
+        ProduktEntity produktEntity = getProduktById(id);
 
         for (Integer kategorieID : kategorieIDs) {
-            KategorieEntity ke = kategorieRepository.findById(kategorieID).orElseThrow(() -> new NotFoundException("Kategorie mit der ID " + kategorieID + " nicht gefunden"));
+            KategorieEntity ke = kategorieService.getKategorieById(kategorieID);
             produktEntity.addKategorie(ke);
         }
 
@@ -60,10 +64,10 @@ public class ProduktService {
     }
 
     public ProduktEntity removeKategorie(Integer id, List<Integer> kategorieIDs) throws NotFoundException {
-        ProduktEntity produktEntity = produktRepository.findById(id).orElseThrow(() -> new NotFoundException("Produkt mit der ID " + id + " nicht gefunden"));
+        ProduktEntity produktEntity = getProduktById(id);
 
         for (Integer kategorieID : kategorieIDs) {
-            KategorieEntity ke = kategorieRepository.findById(kategorieID).orElseThrow(() -> new NotFoundException("Kategorie mit der ID " + kategorieID + " nicht gefunden"));
+            KategorieEntity ke = kategorieService.getKategorieById(kategorieID);
             produktEntity.removeKategorie(ke);
         }
 
